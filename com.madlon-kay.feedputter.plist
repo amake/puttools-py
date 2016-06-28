@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Expand this file like `envsubst < FILE > ~/Library/LaunchAgents/FILE`.
+     envsubst is available as part of gettext. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.madlon-kay.feedputter</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>$PWD/env/bin/feedputter</string>
+    <string>$HOME/Desktop</string>
+  </array>
+  <key>StandardErrorPath</key>
+  <string>$HOME/Library/Logs/feedputter.log</string>
+  <key>StandardOutPath</key>
+  <string>$HOME/Library/Logs/feedputter.log</string>
+  <key>StartInterval</key>
+  <integer>7200</integer>
+</dict>
+</plist>

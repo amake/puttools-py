@@ -111,10 +111,21 @@ class feedputter():
 
             log("Done")
 
+
+def usage():
+    print('Usage: {0} TARGET_DIR'.format(os.path.basename(__file__)))
+
+
 def main():
 
-    if len(sys.argv) < 2 or not os.path.isdir(sys.argv[1]):
-        print 'Usage: {0} TARGET_DIR'.format(os.path.basename(__file__))
+    if len(sys.argv) < 2:
+        usage()
+        sys.exit(1)
+
+    if not os.path.isdir(sys.argv[1]):
+        print('Directory not found or not a directory:', sys.argv[1])
+        print()
+        usage()
         sys.exit(1)
 
     os.chdir(os.path.dirname(__file__))

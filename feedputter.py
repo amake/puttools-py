@@ -7,7 +7,6 @@ Created on 2012/09/03
 import os
 import sys
 import urllib
-import time
 import codecs
 from datetime import datetime
 from xml.etree import ElementTree
@@ -20,10 +19,13 @@ DEBUG = True
 
 PUTIOAPI = None
 
+
 # Stupid CloudFlare decided to block "non-standard" browsers.
 # Spoofing the user-agent gets around it.
 class CustomURLopener(urllib.FancyURLopener):
-    version = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/536.26.17 (KHTML like Gecko) Version/6.0.2 Safari/536.26.17'
+    version = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) '
+    'AppleWebKit/536.26.17 (KHTML like Gecko) Version/6.0.2 Safari/536.26.17'
+
 
 urllib._urlopener = CustomURLopener()
 
@@ -45,7 +47,8 @@ class feedputter():
         self.feed = feed
         self.cache = []
         if os.path.isfile(CACHE_FILE):
-            self.cache = [line.strip() for line in codecs.open(CACHE_FILE, 'r', 'utf-8').readlines()]
+            self.cache = [line.strip() for line in codecs.open(
+                CACHE_FILE, 'r', 'utf-8').readlines()]
 
     def __get_items(self):
         log("Fetching feed from: %s" % self.feed)
@@ -63,7 +66,8 @@ class feedputter():
             log("Error " + torrent.getcode())
             return False
 
-        open(os.path.join(target, title + ".torrent"), "w").write(torrent.read())
+        with open(os.path.join(target, title + ".torrent"), "w") as out:
+            out.write(torrent.read())
 
         return True
 
@@ -72,7 +76,7 @@ class feedputter():
         api = putio.get_api(target_folder=target)
 
         try:
-            t_id = api.add(link, putio.CALLBACK_URL + '?amk_type=tv')
+            api.add(link, putio.CALLBACK_URL + '?amk_type=tv')
 
         except Exception, e:
             print e
@@ -116,7 +120,8 @@ def main():
 
     feeds = [line.strip() for line in open(FEEDS_FILE).readlines()]
 
-    log(datetime.now().isoformat(" ") + " Starting feedputter with {0} feeds".format(len(feeds)))
+    log(datetime.now().isoformat(" ") +
+        " Starting feedputter with {0} feeds".format(len(feeds)))
 
     for feed in feeds:
         getter = feedputter(feed)

@@ -4,6 +4,7 @@ Created on 2012/09/03
 @author: amake
 '''
 
+from __future__ import print_function
 import os
 import sys
 import urllib
@@ -32,7 +33,7 @@ urllib._urlopener = CustomURLopener()
 
 def log(message):
     if DEBUG:
-        print message.encode('utf-8')
+        print(message.encode('utf-8'))
 
 
 class feedputter():
@@ -78,9 +79,9 @@ class feedputter():
         try:
             api.add(link, putio.CALLBACK_URL + '?amk_type=tv')
 
-        except Exception, e:
-            print e
-            print 'Skipping.'
+        except Exception as e:
+            print(e)
+            print('Skipping.')
             return False
 
         return True

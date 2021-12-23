@@ -25,10 +25,7 @@ setup(
     ],
     keywords='bittorrent torrent putio put.io',
     py_modules=['putioget', 'feedputter'],
-    install_requires=['putio'],
-    dependency_links=[
-        'git+https://github.com/amake/putio-py.git#egg=putio-1.0'
-    ],
+    install_requires=['putio @ git+https://github.com/amake/putio-py.git'],
     entry_points={
         'console_scripts': [
             'feedputter=feedputter:main',
